@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digit & JSON Utility Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+<div id="three-bg"></div>
+<!-- <div class="galaxy"></div> -->
+
+<header class="header">
+  <img src="logo.png" class="logo">
+  <button onclick="toggleDark()">🌙</button>
+</header>
+
+<div class="container">
+
+  <!-- FEATURE 1 & 2 -->
+  <div class="card">
+    <h2>🔢 Digit Swapping Tool</h2>
+
+    <input type="text" id="numberInput" placeholder="Enter number">
+
+    <button onclick="swapPairs()">Swap Each Two Digits</button>
+    <button onclick="specialSwap()">5/6 Digit Special Swap</button>
+
+    <div class="output">
+      <p id="digitOutput">—</p>
+      <button class="copy-btn" onclick="copyOutput()">📋 Copy Output</button>
+    </div>
+  </div>
+
+  <!-- FEATURE 3 -->
+  <div class="card">
+    <h2>📂 Circle-wise JSON Generator</h2>
+
+    <input type="file" id="jsonFile" accept=".json">
+
+    <button onclick="generateJSON()">Create JSON Files</button>
+
+    <div class="output">
+      <p id="jsonStatus">—</p>
+    </div>
+  </div>
+
+  <!-- SOLAR SYSTEM -->
+<div class="solar-system">
+  <div class="sun"></div>
+
+  <div class="earth-orbit">
+    <div class="earth">
+      <div class="moon-orbit">
+        <div class="moon"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
