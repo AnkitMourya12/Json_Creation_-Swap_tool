@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
+
 <div id="three-bg"></div>
 <!-- <div class="galaxy"></div> -->
 
@@ -18,19 +18,34 @@
 <div class="container">
 
   <!-- FEATURE 1 & 2 -->
-  <div class="card">
-    <h2>🔢 Digit Swapping Tool</h2>
+<div class="card">
+  <h2>🔢 Digit Swapping Tool</h2>
 
-    <input type="text" id="numberInput" placeholder="Enter number">
+  <!-- Single number -->
+  <input type="text" id="numberInput" placeholder="Enter number">
 
-    <button onclick="swapPairs()">Swap Each Two Digits</button>
-    <button onclick="specialSwap()">5/6 Digit Special Swap</button>
+  <button onclick="swapPairs()">Swap Each Two Digits</button>
+  <button onclick="specialSwap()">5/6 Digit Special Swap</button>
 
-    <div class="output">
-      <p id="digitOutput">—</p>
-      <button class="copy-btn" onclick="copyOutput()">📋 Copy Output</button>
-    </div>
+  <hr>
+
+  <!-- FILE BASED FEATURE 1 -->
+  <p><b>Swap Each Two Digits (File)</b></p>
+  <input type="file" id="swapFile" accept=".txt,.json">
+  <button onclick="swapFromFile()">Swap File Digits</button>
+
+  <hr>
+
+  <!-- FILE BASED FEATURE 2 (NEW) -->
+  <p><b>5/6 Digit Special Swap (File)</b></p>
+  <input type="file" id="specialSwapFile" accept=".txt,.json">
+  <button onclick="specialSwapFromFile()">Special Swap File</button>
+
+  <div class="output">
+    <p id="digitOutput">—</p>
+    <button class="copy-btn" onclick="copyOutput()">📋 Copy Output</button>
   </div>
+</div>
 
   <!-- FEATURE 3 -->
   <div class="card">
@@ -66,4 +81,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
