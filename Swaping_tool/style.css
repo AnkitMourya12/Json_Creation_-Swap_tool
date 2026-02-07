@@ -32,6 +32,17 @@ body {
   from { transform: rotate(0); }
   to { transform: rotate(360deg); }
 }
+/* 📱 Mobile & Tablet Support */
+@media (max-width: 900px) {
+  .container {
+    flex-wrap: wrap;     /* stack cards on small screens */
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+  }
+}
 
 .header {
   display: flex;
@@ -45,15 +56,17 @@ body {
 
 .container {
   display: flex;
-  gap: 30px;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
+  gap: 30px;
   padding: 40px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;          /* 🔥 keeps cards horizontal */
 }
+
 
 .card {
   width: 380px;
+  min-height: 520px;
   padding: 25px;
   background: var(--card);
   border-radius: 20px;
@@ -61,6 +74,7 @@ body {
   box-shadow: 0 25px 40px rgba(0,0,0,0.6);
   transition: transform 0.3s;
 }
+
 
 .card:hover {
   transform: rotateX(6deg) rotateY(-6deg);
