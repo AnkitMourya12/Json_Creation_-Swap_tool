@@ -17,6 +17,86 @@ function swapPairs() {
   digitOutput.innerText = res;
 }
 
+/* =========================
+   FEATURE 1 (FILE BASED)
+========================= */
+
+function swapFromFile() {
+  const fileInput = document.getElementById("swapFile");
+  if (!fileInput.files.length) {
+    alert("Please upload a file");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    let content = e.target.result;
+    let outputLines = [];
+
+    try {
+      // If JSON file
+      if (file.name.endsWith(".json")) {
+        const jsonData = JSON.parse(content);
+
+        for (let key in jsonData) {
+          const val = jsonData[key].toString();
+
+          if (val.length % 2 !== 0 || !/^\d+$/.test(val)) {
+            outputLines.push(`${key}: INVALID`);
+            continue;
+          }
+
+          outputLines.push(`${key}: ${swapEvenDigits(val)}`);
+        }
+      }
+      // If TXT file
+      else {
+        const lines = content.split(/\r?\n/);
+
+        lines.forEach(line => {
+          const val = line.trim();
+          if (!val) return;
+
+          if (val.length % 2 !== 0 || !/^\d+$/.test(val)) {
+            outputLines.push("INVALID");
+          } else {
+            outputLines.push(swapEvenDigits(val));
+          }
+        });
+      }
+
+      downloadFile(outputLines.join("\n"), "swapped_output.txt");
+      digitOutput.innerText = "✅ File processed & downloaded";
+
+    } catch (err) {
+      digitOutput.innerText = "❌ File format error";
+    }
+  };
+
+  reader.readAsText(file);
+}
+
+/* Helper: swap each two digits */
+function swapEvenDigits(numStr) {
+  let res = "";
+  for (let i = 0; i < numStr.length; i += 2) {
+    res += numStr[i + 1] + numStr[i];
+  }
+  return res;
+}
+
+/* Helper: download output */
+function downloadFile(content, filename) {
+  const blob = new Blob([content], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+
+
 /* FEATURE 2 */
 function specialSwap() {
   let input = numberInput.value.trim();
@@ -184,3 +264,76 @@ function animate() {
 }
 
 animate();
+
+function specialSwapLogic(value) {
+  // Must be digits only
+  if (!/^\d+$/.test(value)) return "INVALID";
+
+  // 5-digit case → append F
+  if (value.length === 5) {
+    value = value + "F"; // now length = 6
+  }
+
+  // Only 6 characters allowed after this
+  if (value.length !== 6) return "INVALID";
+
+  // Pair-wise swap: (01)(23)(45)
+  return (
+    value[1] + value[0] +   
+    value[5] + value[2] +   
+    value[4] + value[3]     
+  );
+}
+
+
+function specialSwapFromFile() {
+  const fileInput = document.getElementById("specialSwapFile");
+
+  if (!fileInput.files.length) {
+    alert("Please upload a file");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    let content = e.target.result;
+    let output = [];
+
+    try {
+      // JSON file
+      if (file.name.endsWith(".json")) {
+        const jsonData = JSON.parse(content);
+
+        for (let key in jsonData) {
+          const val = jsonData[key].toString();
+          const result = specialSwapLogic(val);
+          output.push(`${key}: ${result}`);
+        }
+      }
+      // TXT file
+      else {
+        const lines = content.split(/\r?\n/);
+        lines.forEach(line => {
+          const val = line.trim();
+          if (!val) return;
+          output.push(specialSwapLogic(val));
+        });
+      }
+
+      downloadFile(
+        output.join("\n"),
+        "special_swap_output.txt"
+      );
+
+      digitOutput.innerText = "✅ Special swap file processed";
+
+    } catch (err) {
+      digitOutput.innerText = "❌ Invalid file format";
+    }
+  };
+
+  reader.readAsText(file);
+}
+
